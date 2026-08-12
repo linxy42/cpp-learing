@@ -48,6 +48,7 @@ bool addStudent(vector<Student>& students) {
 void ShowStudent(const vector<Student> &students) {
 	if (students.empty()) {
 		cout << "没有学生信息，请添加学生信息" << endl;
+		cout << endl;
 		return ;
 	}
 	for (int i=0;i<students.size();i++) {
@@ -79,6 +80,27 @@ void FindStudent(const vector<Student> &students) {
 		cout << "没有找到该学生，请重新输入" << endl;
 		cout << endl;
 }
+void DeleteStudent(vector<Student> & students) {
+	if (students.empty()) {
+		cout << "没有学生信息，请返回" << endl;
+		return;
+	}
+	cout << "请输入要删除学生的学号" << endl;
+	long long number;
+	cin >> number;
+	for (int i=0;i<students.size();) {
+		if (students[i].GetNumber() == number) {
+			students.erase(students.begin()+i);
+			cout << "学生信息删除成功" << endl;
+			return;
+		}
+		else {
+			++i;
+		}
+	}
+	cout << "没有找到该学生，请重新输入" << endl;
+	cout << endl;
+}
 
 int main() {
 	int choice;
@@ -108,7 +130,7 @@ int main() {
 			FindStudent(students);
 			break;
 		case 4:
-			cout << "该项目开发中" << endl;
+			DeleteStudent(students);
 			break;
 		default:
 			cout << "输入有误，请重新输入" << endl;
