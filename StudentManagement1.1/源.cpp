@@ -105,11 +105,7 @@ void DeleteStudent(vector<Student> & students) {
 }
 
 void SaveStudent(const vector<Student>& students) {
-	if (students.empty()) {
-		cout << "没有学生信息，保存失败" << endl;
-		cout << endl;
-		return;
-	}
+
 	ofstream ofs("students.txt", ios::out);
 	if (!ofs.is_open()) {
 		cout << "文件打开失败" << endl;
@@ -124,9 +120,26 @@ void SaveStudent(const vector<Student>& students) {
 	ofs.close();
 }
 
+void LoadStudent(vector<Student>& students) {
+	ifstream ifs("students.txt", ios::in);
+	if(!ifs.is_open()){
+		return;
+	}
+	long long number;
+	string name;
+	int age;
+	while (ifs >> number >> name >> age) {
+		Student s(number, name, age);
+		students.push_back(s);
+	}
+	ifs.close();
+}
+
+
 int main() {
 	int choice;
 	vector<Student> students;
+	LoadStudent(students);
 	while (true) {
 		cout << "1添加学生" << endl;
 		cout << "2查看所有学生" << endl;
