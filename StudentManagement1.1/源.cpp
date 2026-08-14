@@ -115,9 +115,9 @@ void SaveStudent(const vector<Student>& students) {
 	for (int i=0;i<students.size();++i) {
 		ofs << students[i].GetNumber() << " " << students[i].GetName() << " " << students[i].GetAge() << endl;
 	}
+	ofs.close();
 	cout << "学生信息保存成功" << endl;
 	cout << endl;
-	ofs.close();
 }
 
 void LoadStudent(vector<Student>& students) {
@@ -135,6 +135,34 @@ void LoadStudent(vector<Student>& students) {
 	ifs.close();
 }
 
+void ModifyStudent(vector<Student>& students) {
+	if (students.empty()) {
+		cout << "没有学生信息，请先添加学生信息" << endl;
+		cout << endl;
+		return;
+	}
+	cout << "请输入需要修改的学生的学号" << endl;
+	long long number;
+	cin >> number;
+	for (int i = 0; i < students.size(); ++i) {
+		if (students[i].GetNumber() == number) {
+			string name;
+			int age;
+			cout << "请输入要修改的姓名" << endl;
+			cin >> name;
+			cout << "请输入要修改的年龄" << endl;
+			cin >> age;
+			Student s(number, name, age);
+			students[i] = s;
+			cout << "修改成功" << endl;
+			cout << endl;
+			return;
+		}
+	}
+	cout << "没有找到该学生信息，请重新输入" << endl;
+	cout << endl;
+	return;
+}
 
 int main() {
 	int choice;
@@ -146,6 +174,7 @@ int main() {
 		cout << "3查找学生" << endl;
 		cout << "4删除学生" << endl;
 		cout << "5保存到文件" << endl;
+		cout << "6修改学生信息" << endl;
 		cout << "0退出" << endl;
 		cin >> choice;
 		switch (choice) {
@@ -177,6 +206,10 @@ int main() {
 		case 5:
 			cout << endl;
 			SaveStudent(students);
+			break;
+		case 6:
+			cout << endl;
+			ModifyStudent(students);
 			break;
 		default:
 			cout << "输入有误，请重新输入" << endl;
