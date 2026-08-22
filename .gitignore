@@ -1,0 +1,6 @@
+# macOS build output
+/main
+/main.dSYM/
+
+# Runtime data
+/students.txt
